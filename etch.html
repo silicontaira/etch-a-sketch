@@ -1,0 +1,57 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Etch-A-Sketch</title>
+        <h1>Etch-A-Sketch</h1>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class='buttonContainer'>
+            <button id='clear'>Clear</button>
+        </div>
+        <div class='gridContainer'></div>
+    </body>
+</html>
+
+<script>
+    //Main Code
+    let numColumns = 16;
+    let numRows = 16;
+    let gridContainer = document.querySelector('.gridContainer');
+    gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
+    gridContainer.style.gridTemplateRows = `repeat(${numRows}, 1fr)`;
+    for (i = 0; i < numColumns*numRows; i++) {
+        let div = document.createElement('div');
+        div.setAttribute('id', 'item');
+        gridContainer.appendChild(div);
+    }
+
+    let button = document.querySelector('#clear');
+    button.addEventListener('click', clear);
+
+    let items = Array.from(document.querySelectorAll('#item'));
+    items.forEach(item => item.addEventListener('mouseenter', changeColor));
+
+    function changeColor(e) {
+        this.style.backgroundColor = 'black';
+    }
+
+    //Functions
+    function clear(e) {
+        //Removes the divs so new grid and divs can be created
+        for (i = 0; i < numColumns*numRows; i++) {
+            let div = document.querySelector('#item');
+            gridContainer.removeChild(div);
+        }
+        numColumns = numRows = prompt('How big would you like your grid?');
+        gridContainer.style.gridTemplateColumns = `repeat(${numColumns}, 1fr)`;
+        gridContainer.style.gridTemplateRows = `repeat(${numRows}, 1fr)`;
+        for (i = 0; i < numColumns*numRows; i++) {
+            let div = document.createElement('div');
+            div.setAttribute('id', 'item');
+            gridContainer.appendChild(div);
+        }
+    }
+</script>
+
+<!--<script src="script.js"></script>-->
